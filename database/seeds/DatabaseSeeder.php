@@ -17,10 +17,8 @@ class DatabaseSeeder extends Seeder
             for ($i = 0; $i < 3; $i++){
                 $task = factory(App\Task::class)->make([
                     'user_id' => $user->id,
-                ]);
-                
-                $task->save();
-              
+                ]);                
+                $task->save();              
             }    
         });
       

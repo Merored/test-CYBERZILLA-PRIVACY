@@ -8,25 +8,52 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
 
-// const files = require.context('./', true, /\.vue$/i)
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+import JwPagination from 'jw-vue-pagination';
+Vue.component('jw-pagination', JwPagination);
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
 
-const app = new Vue({
-    el: '#app',
-});
+import VueRouter from 'vue-router';
+window.Vue.use(VueRouter);
+
+import TasksCreate from './components/tasks/TasksCreate.vue';
+import TasksEdit from './components/tasks/TasksEdit.vue';
+
+import UsersList from './components/users/UsersList.vue';
+import UsersCreate from './components/users/UsersCreate.vue';
+import UsersEdit from './components/users/UsersEdit.vue';
+
+const routes = [
+    {
+        path: '/',
+        component: UsersList, 
+        name: 'usersList',
+    },
+    {
+        path: '/users/create',
+        component: UsersCreate, 
+        name: 'usersCreate',
+    },
+    {
+        path: '/users/:id/edit/',
+        component: UsersEdit, 
+        name: 'usersEdit',
+    },
+
+    {
+        path: '/users/:user_id/tasks/create',
+        component: TasksCreate, 
+        name: 'tasksCreate',
+    },
+    {
+        path: '/users/:user_id/tasks/edit/:id',
+        component: TasksEdit, 
+        name: 'tasksEdit',
+    },
+]
+
+const router = new VueRouter({ routes })
+
+
+const app = new Vue({ router }).$mount('#app')

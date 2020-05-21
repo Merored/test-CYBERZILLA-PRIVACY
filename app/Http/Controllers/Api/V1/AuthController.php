@@ -12,9 +12,7 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-
         $credentials = $request->only('email', 'password');
-        
         JWTAuth::factory()->setTTL(120);
         if (!$token = JWTAuth::attempt($credentials)) {         
             return response([
@@ -37,7 +35,6 @@ class AuthController extends Controller
                 'data' => 'no user data'
             ]);
         }
-       
     }
     public function authorized(Request $request)
     {
@@ -46,7 +43,6 @@ class AuthController extends Controller
         } else {
             return ['authorized' => false];
         }
-       
     }
 
     public function refresh()
